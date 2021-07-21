@@ -1,14 +1,18 @@
 #!/bin/bash
 yum update -y
+
+# Node application location
+mkdir /home/ec2-user/test-app
+cd /home/ec2-user/test-app
+
 sudo su
 
 # Install node
 # Documentation can be found at https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html
+cd /home/ec2-user/
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 . ~/.nvm/nvm.sh
 nvm install node
-mkdir /home/ec2-user/test-app
-cd /home/ec2-user/test-app
 
 # Installation for CodeDeploy services
 yum install ruby wget -y
