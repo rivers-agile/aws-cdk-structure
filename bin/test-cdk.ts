@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { TestCdkStack } from '../lib/test-cdk-stack';
 import {WebStack} from "../lib/web-stack";
+import {DeployStack} from "../lib/deploy-stack";
 
 const app = new cdk.App();
 new WebStack(app, 'WebStack');
+new DeployStack(app, 'DeployStack');
 
 // Leaving TestCdkStack here to understand how initial project scaffolding works
 // new TestCdkStack(app, 'TestCdkStack', {

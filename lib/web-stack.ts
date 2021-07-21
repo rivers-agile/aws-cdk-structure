@@ -43,13 +43,33 @@ export class WebStack extends cdk.Stack {
             'Web Access',
         );
 
-        // Role for the Web Server
+        // Inline Permissions for the Web Server
+        const s3Access = new iam.PolicyDocument({
+            statements: [
+                new iam.PolicyStatement({
+                    resources: ["*"],
+                    actions: ["s3:GetBucketLocation",
+                        "s3:PutObject",
+                        "s3:GetObject",
+                        "s3:GetEncryptionConfiguration",
+                        "s3:AbortMultipartUpload",
+                        "s3:ListMultipartUploadParts",
+                        "s3:ListBucket",
+                        "s3:ListBucketMultipartUploads",
+                        "s3:GetObjectVersion",
+                    ]
+                })
+            ]
+        })
         // Adding S3 access for CodeBuild deployment reasons
         const role = new iam.Role(this, 'web-server-role', {
             assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
             managedPolicies: [
                 iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonS3ReadOnlyAccess'),
             ],
+            inlinePolicies: {
+                s3Perms: s3Access
+            }
         });
 
         // Create our Web Server
