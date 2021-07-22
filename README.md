@@ -1,6 +1,6 @@
 # Amazon Web Services Cloud Development Kit (Part 2)
 
-This project is a supplemental code guide to Rivers Agile - 
+This project is a supplemental code guide to [Rivers Agile](https://riversagile.com) - 
 [Amazon Web Services Cloud Development Kit (Part 2)](https://riversagile.com/aws-cdk-structure/) blog article.
 
 Within this example project we have 2 stacks
