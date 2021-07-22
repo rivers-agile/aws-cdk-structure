@@ -4,8 +4,11 @@ import * as cdk from '@aws-cdk/core';
 import {WebStack} from "../lib/web-stack";
 import {DeployStack} from "../lib/deploy-stack";
 
+// Create a CDK app and read based on bootstrap configuration and information (i.e., Test for this project)
 const app = new cdk.App();
+// Web Assets
 new WebStack(app, 'WebStack');
+// Code Pipeline build and deployment assets
 new DeployStack(app, 'DeployStack');
 
 // Leaving TestCdkStack here to understand how initial project scaffolding works

@@ -4,10 +4,9 @@ import * as pipeline from "@aws-cdk/aws-codepipeline";
 import * as actions from "@aws-cdk/aws-codepipeline-actions";
 import {CodeCommitTrigger} from "@aws-cdk/aws-codepipeline-actions";
 import * as deploy from "@aws-cdk/aws-codedeploy";
-import {InstanceTagGroup} from "@aws-cdk/aws-codedeploy/lib/server/deployment-group";
 
 /*
-BuildStack is our CodePipeline environment
+DeployStack is our CodePipeline environment
 It creates
 - CodeCommit repository named example-node-project
 - CodeDeploy action to map to deployed resources based on tag of Name
@@ -18,9 +17,12 @@ export class DeployStack extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
+        // Create our CodeCommit repository
         const repository = new code.Repository(this, "my-project-repo", {
             repositoryName:"example-node-project"
         });
+
+        // Our S3 bucket for Pipeline artifacts
         const output = new pipeline.Artifact("Output");
 
         // Define where the EC2 stack goes based on the tag Name of "WebStack/ec2-instance" which is the default for web-stack.ts
@@ -34,7 +36,7 @@ export class DeployStack extends cdk.Stack {
 
         // Complete Pipeline Project
         new pipeline.Pipeline(this, "Pipeline", {
-            restartExecutionOnUpdate: true,
+            restartExecutionOnUpdate: true, // Run the pipeline automatically if updated
             stages: [
                 {
                     stageName: "Source",
@@ -54,7 +56,7 @@ export class DeployStack extends cdk.Stack {
                         new actions.CodeDeployServerDeployAction({
                             actionName: "CodeDeploy",
                             input: output,
-                            deploymentGroup
+                            deploymentGroup // Deploy to particular machines matching the EC2 instance name tag
                         }),
                     ],
                 }

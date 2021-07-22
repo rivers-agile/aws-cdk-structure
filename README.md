@@ -1,14 +1,31 @@
-# Welcome to your CDK TypeScript project!
+# Amazon Web Services Cloud Development Kit (Part 2)
 
-This is a blank project for TypeScript development with CDK.
+This project is a supplemental code guide to Rivers Agile - 
+[Amazon Web Services Cloud Development Kit (Part 2)](https://riversagile.com/aws-cdk-structure/) blog article.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+Within this example project we have 2 stacks
+1. Web Service Stack (Stack 1/WebStack) - [web-stack.ts](https://github.com/rivers-agile/aws-cdk-structure/blob/master/lib/web-stack.ts)
+2. Build and Deploy Stack (Stack 2/DeployStack) - [deploy-stack.ts](https://github.com/rivers-agile/aws-cdk-structure/blob/master/lib/deploy-stack.ts)
 
-## Useful commands
+Also included within this example project is a simple Node application ([example-node-project.zip](https://github.com/rivers-agile/aws-cdk-structure/blob/master/example-node-project.zip)) that uses Express and Pug.
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+Additional configuration can be found in the `cdk.json` file tells the CDK Toolkit how to execute your app.
+
+## Bootstrap
+The CDK S3 bucket will be test instead of the default cdk naming convention.
+
+`cdk bootstrap --toolkit-stack-name Test`
+
+## Deployment
+Use the below syntax to deploy for each stack for the example project.
+
+`cdk deploy WebStack --toolkit-stack-name Test`
+
+`cdk deploy DeployStack --toolkit-stack-name Test`
+
+## Cleanup
+Use the below syntax to remove deployment and CloudFormation for each respective stacks for you example project.
+
+`cdk destroy WebStack --toolkit-stack-name Test`
+
+`cdk destroy DeployStack --toolkit-stack-name Test`
